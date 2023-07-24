@@ -7,7 +7,7 @@ const formatDate = require('../utils/date-format.js')
 //reaction schema
 const reactionSchema = new Schema({
     reactionId: {
-        type: Schema.Tyles.ObjectId,
+        type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
     },
     reactionBody: {
@@ -59,8 +59,8 @@ const thoughtSchema = new Schema({
     id: false,
 });
 
-const Thought = model("Thought", thoughtSchema);
-userSchema.virtual('reactionCount').get(function () {
+const Thought = model("thought", thoughtSchema);
+thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 })
 
