@@ -1,8 +1,9 @@
 const {
     Schema,
-    model
-} = require("mongoose");
-const formatDate = require('../utils/date-format.js')
+    model,
+    Types
+} = require('mongoose');
+const moment = require('moment')
 
 //reaction schema
 const reactionSchema = new Schema({
@@ -15,15 +16,15 @@ const reactionSchema = new Schema({
         required: true,
         maxlength: 280,
     },
-    userName: {
+    username: {
         type: String,
         required: true,
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (date) => formatDate(date)
-    }
+        get: date => moment(date).format("MMM DD, YYY [at] hh:mm a")
+    },
 }, {
     toJSON: {
         getters: true,
@@ -40,11 +41,10 @@ const thoughtSchema = new Schema({
         minlength: 1,
         maxlength: 280,
     },
-
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (date) => formatDate(date)
+        get: date => moment(date).format("MMM DD, YYY [at] hh:mm a")
     },
     username: {
         type: String,
@@ -59,10 +59,12 @@ const thoughtSchema = new Schema({
     id: false,
 });
 
-const Thought = model("thought", thoughtSchema);
+
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 })
+
+const Thought = model("Thought", thoughtSchema);
 
 
 

@@ -20,7 +20,6 @@ module.exports = {
 
         // Pad the day with leading zero if it's a single-digit number
         const formattedDay = (day < 10 ? "0" : "") + day;
-
         return `${month} ${formattedDay} ${year}`;
     },
 };
