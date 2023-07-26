@@ -59,11 +59,12 @@ const thoughtSchema = new Schema({
     id: false,
 });
 
-
+//shows the reaction count as a virtual
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 })
 
+//instantiates the model
 const Thought = model("Thought", thoughtSchema);
 
 

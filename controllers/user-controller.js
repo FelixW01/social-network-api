@@ -4,14 +4,14 @@ const {
 } = require("../models");
 
 const userController = {
-    //get All Users
+    //get All Users, -__v for up to date
     getUser(req, res) {
         User.find({})
             .select("-__v")
             .then((userData) => res.json(userData))
             .catch((err) => res.status(500).json(err));
     },
-    //get one user by id
+    //get one user by id, populate thoughts and friends
     getSingleUser(req, res) {
         User.findOne({
                 _id: req.params.userId
@@ -36,7 +36,7 @@ const userController = {
             .catch((err) => res.status(500).json(err));
     },
 
-    //update user
+    //update user, where: _id, return the up to date data
     updateUser(req, res) {
         User.findOneAndUpdate({
                 _id: req.params.userId
@@ -74,7 +74,7 @@ const userController = {
             })
             .catch((err) => res.status(500).json(err));
     },
-    //add friend
+    //add friend, where: _id, adds to friends array
     addFriend(req, res) {
         User.findOneAndUpdate({
                 _id: req.params.userId
@@ -99,7 +99,7 @@ const userController = {
             })
             .catch((err) => res.status(500).json(err));
     },
-    //delete friend
+    //delete friend, where: _id, pull from friends array by the friendId
     deleteFriend(req, res) {
         User.findOneAndUpdate({
                 _id: req.params.userId
